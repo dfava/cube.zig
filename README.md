@@ -5,6 +5,11 @@
 zig build run
 ```
 
+Keys:
+- `space` to quit
+- `asdqwe` to roate
+- `shift` and a rotation key to rotate 90 degrees
+
 ---
 
 [getting started with mach engine](https://machengine.org/core/getting-started/)
