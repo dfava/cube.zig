@@ -17,12 +17,19 @@ pub fn build(b: *std.Build) !void {
     const optimize = b.standardOptimizeOption(.{});
 
     mach_core.mach_glfw_import_path = "mach_core.mach_glfw";
+
+    var deps = std.ArrayList(std.Build.ModuleDependency).init(b.allocator);
+    try deps.append(std.Build.ModuleDependency{
+        .name = "zmath",
+        .module = b.createModule(.{ .source_file = .{ .path = "libs/zmath.zig" } }),
+    });
+
     const app = try mach_core.App.init(b, .{
         .name = "myapp",
         .src = "src/main.zig",
         .target = target,
         .optimize = optimize,
-        .deps = &[_]std.build.ModuleDependency{},
+        .deps = deps.items,
     });
     if (b.args) |args| app.run.addArgs(args);
 
